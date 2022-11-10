@@ -1,23 +1,30 @@
-import logo from './logo.svg';
 import './App.css';
+import { Board, Players } from './components';
+
+import { useState } from "react";
+import Button from '@mui/material/Button';
+
 
 function App() {
+    //sets whether or not the board should be reset
+    const [reset, setReset] = useState(false);
+    //winner set
+    const [winner, setWinner] = useState('');
+  
+    const resetBoard = () => {
+      setReset(true);
+    }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className={`winner ${winner !== '' ? '' : 'shrink'}`}>
+        {/* Display the current winner */}
+        <div className='winner-text'>{winner}</div>
+        {/* Button used to reset the board */}
+        <Button variant="contained" onClick={ () => {resetBoard()}}> Reset Board </Button>
+      </div>
+      <Players />
+      <Board reset={reset} setReset={setReset} winner={winner} setWinner={setWinner} />
     </div>
   );
 }
